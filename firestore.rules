@@ -1,0 +1,13 @@
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /screens/{screen} {
+      allow get: if true; // Read if you know the screen id
+      allow list: if request.auth.email == "ottpau@gmail.com"; // Cannot list all screens
+      allow write: if request.auth.uid == "ottpau@gmail.com";
+    }
+    match /screens/{screen}/messages/{message} {
+      allow list: if true; // Read messages
+    }
+  }
+}
+
